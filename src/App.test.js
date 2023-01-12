@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("TEST APP", () => {
@@ -11,6 +12,7 @@ describe("TEST APP", () => {
     expect(btn).toBeInTheDocument();
     expect(input).toMatchSnapshot();
   });
+
   test("renders learn react link", async () => {
     render(<App />);
     // const helloWorldElem = screen.queryByText(/hello2/i);
@@ -20,16 +22,25 @@ describe("TEST APP", () => {
 
     expect(helloWorldElem).toBeInTheDocument();
   });
+
   test("CLICK EVENT", () => {
     render(<App />);
-
     const btn = screen.getByTestId("toggle-btn");
-    // const toggleDiv = screen.queryByTestId("toggle-elem");
-    expect(screen.queryByTestId("toggle-elem")).toBeNull()
-    fireEvent.click(btn)
-    expect(screen.queryByTestId("toggle-elem")).toBeInTheDocument()
-    fireEvent.click(btn)
-    expect(screen.queryByTestId("toggle-elem")).toBeNull()
+    expect(screen.queryByTestId("toggle-elem")).toBeNull();
+    fireEvent.click(btn);
+    expect(screen.queryByTestId("toggle-elem")).toBeInTheDocument();
+    fireEvent.click(btn);
+    expect(screen.queryByTestId("toggle-elem")).toBeNull();
+  });
 
+  test("INPUT EVENT", () => {
+    render(<App />);
+    const input = screen.getByPlaceholderText(/input value/i);
+    expect(screen.queryByTestId("value-elem")).toContainHTML("");
+    // fireEvent.input(input, {
+    //   target: { value: "123123" },
+    // });
+    userEvent.type(input, '123123')
+    expect(screen.queryByTestId("value-elem")).toContainHTML("123123");
   });
 });
