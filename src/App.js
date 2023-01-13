@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar";
 import AboutePage from "./pages/AboutePage";
 import ErrorPage from "./pages/ErrorPage";
 import MainPage from "./pages/MainPage";
@@ -41,15 +42,7 @@ import Users from "./users/Users";
 const App = () => {
   return (
     <>
-      <Link to="/" data-testid="main-link">
-        main
-      </Link>
-      <Link to="/about" data-testid="about-link">
-        about
-      </Link>
-      <Link to="/users" data-testid="users-link">
-        users
-      </Link>
+      <Navbar />
       <AppRouter />
     </>
   );
