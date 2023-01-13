@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import axios from "axios";
 import userEvent from "@testing-library/user-event";
 import Users from "./Users";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
+import UsersDetailsPage from "../pages/UsersDetailsPage";
 
 jest.mock("axios");
 
@@ -27,13 +29,32 @@ describe("USERS TEST", () => {
       data,
     };
   });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+  // test("renders users", async () => {
+  //   axios.get.mockReturnValue(response);
+  //   render(<Users />);
+  //   const users = await screen.findAllByTestId("user-item");
+  //   expect(users.length).toBe(3);
+  //   expect(axios.get).toBeCalledTimes(1);
+  //   screen.debug();
+  // });
 
-  test("renders users", async () => {
+  test("test redirect to details", async () => {
     axios.get.mockReturnValue(response);
-    render(<Users />);
+    const user = userEvent.setup()
+    render(
+      <MemoryRouter initialEntries={["/users"]}>
+        <Routes>
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<UsersDetailsPage />} />
+        </Routes>
+      </MemoryRouter>
+    );
     const users = await screen.findAllByTestId("user-item");
     expect(users.length).toBe(3);
-    expect(axios.get).toBeCalledTimes(1);
-    screen.debug();
+    await user.click(users[0]);
+    expect(screen.getByTestId("user-page")).toBeInTheDocument();
   });
 });

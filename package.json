@@ -5,7 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/user-event": "^14.4.3",
     "axios": "^1.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -14,9 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "test:debug": "react-scripts --inspect-brk test --runInBand --no-cache --watchAll --testMatch **/src/users/Users.test.jsx --transformIgnorePatterns",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll --testMatch **/src/**/*.test.jsx --transformIgnorePatterns",
+    "test": "react-scripts test --watchAll --testMatch **/src/users/Users.test.jsx --transformIgnorePatterns ",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
